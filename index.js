@@ -41,11 +41,11 @@ app.post("/", async (req, res) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        content: `🚀 **TradingView Alert:** ${alert.message}`
+        content: `🚀 **TradingView Alert:**\n ${alert.content}`
       })
     });
 
-    console.log("✅ Sent to Discord:", alert.message);
+    console.log("✅ Sent to Discord:", alert.content);
     res.status(200).send("OK");
   } catch (error) {
     console.error("❌ Error sending alert:", error);
