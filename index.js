@@ -22,15 +22,16 @@ app.post("/", async (req, res) => {
 
     // Filter which Discord channel to send to
     if (msg.includes("daypowermove")) {
-      console.log("daypowermove:");
+      console.log("daypowermove:TRUE");
       webhookUrl = DAY_POWER_MOVE_WEBHOOK;
     } else if (msg.includes("todayhighorlowcreated")) {
-      console.log("todayhighorlowcreated:");
+      console.log("todayhighorlowcreated:TRUE");
       webhookUrl = TODAY_HIGH_LOW_WEBHOOK;
     } else if (msg.includes("powercrt")) {
-      console.log("powercrt:");
+      console.log("powercrt:TRUE");
       webhookUrl = POWER_CRT_WEBHOOK;
-    } else {
+    }
+    else {
       console.log("⚠️ Ignored alert — no keyword matched");
       return res.status(200).send("Ignored: no match");
     }
