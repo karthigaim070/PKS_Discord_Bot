@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 // 🧩 Replace these with your actual Discord Webhook URLs
-const DAY_POWER_MOVE_WEBHOOK = "https://discord.com/api/webhooks/1437027104507170937/EnH0fysCXSZUDsh6jPtiWbxFw16cOBZC49T5duOpYVL7W-aoLF_5W8Y92SrdZakciTQn";
+const DAY_POWER_MOVE_WEBHOOK = "https://discordapp.com/api/webhooks/1437027104507170937/EnH0fysCXSZUDsh6jPtiWbxFw16cOBZC49T5duOpYVL7W-aoLF_5W8Y92SrdZakciTQn";
 const TODAY_HIGH_LOW_WEBHOOK = "https://discord.com/api/webhooks/YYYY/todayhighlow";
 const POWER_CRT_WEBHOOK = "https://discord.com/api/webhooks/ZZZZ/powercrt";
 
