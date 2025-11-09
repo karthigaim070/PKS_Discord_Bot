@@ -6,8 +6,8 @@ app.use(express.json());
 
 // 🧩 Replace these with your actual Discord Webhook URLs
 const DAY_POWER_MOVE_WEBHOOK = "https://discordapp.com/api/webhooks/1437027104507170937/EnH0fysCXSZUDsh6jPtiWbxFw16cOBZC49T5duOpYVL7W-aoLF_5W8Y92SrdZakciTQn";
-const TODAY_HIGH_LOW_WEBHOOK = "https://discord.com/api/webhooks/YYYY/todayhighlow";
-const POWER_CRT_WEBHOOK = "https://discord.com/api/webhooks/ZZZZ/powercrt";
+const TODAY_HIGH_LOW_WEBHOOK = "https://discordapp.com/api/webhooks/1436986670754041856/XkMkvyZUpWfv4p6Q2XkCPi15xR5_hBuuvnDuIftdrkBsv_u_5O-UUWxeTqzjD5iC8XeF";
+const POWER_CRT_WEBHOOK = "https://discordapp.com/api/webhooks/1437032285860790354/sbgq_ZA42p1-V8V7YZN2RUmFqYzbBY1NTTb1-1uo8jIl_GV7EaDafdTOwq46_uInl_c5";
 
 app.post("/", async (req, res) => {
   const alert = req.body;
