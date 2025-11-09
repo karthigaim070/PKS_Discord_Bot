@@ -1,56 +1,50 @@
 import express from "express";
 import fetch from "node-fetch";
-import bodyParser from "body-parser";
-//tyuu
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
-app.use(bodyParser.json());
+// 🧩 Replace these with your actual Discord Webhook URLs
+const DAY_POWER_MOVE_WEBHOOK = "https://discord.com/api/webhooks/XXXX/daypowermove";
+const TODAY_HIGH_LOW_WEBHOOK = "https://discord.com/api/webhooks/YYYY/todayhighlow";
+const POWER_CRT_WEBHOOK = "https://discord.com/api/webhooks/ZZZZ/powercrt";
 
-// --- Replace these with your actual Discord webhook URLs ---
-const WEBHOOKS = {
-  dayPowerMove: "https://discord.com/api/webhooks/XXXX/XXXX", // your #day-power-move webhook
-  dayHL: "https://discord.com/api/webhooks/YYYY/YYYY",         // your #day-hl-alerts webhook
-  powerCR: "https://discord.com/api/webhooks/ZZZZ/ZZZZ"        // your #power-cr-alerts webhook
-};
-
-// --- Main route ---
 app.post("/", async (req, res) => {
+  const alert = req.body;
+  const msg = alert.message?.toLowerCase() || "";
+
+  console.log("📩 Received alert:", msg);
+
   try {
-    const data = req.body;
-    console.log("📩 Received alert:", data);
+    let webhookUrl;
 
-    const message = data.content || "";
-    const msgLower = message.toLowerCase();
+    // Filter which Discord channel to send to
+    if (msg.includes("daypowermove")) {
+      webhookUrl = DAY_POWER_MOVE_WEBHOOK;
+    } else if (msg.includes("todayhighorlowcreated")) {
+      webhookUrl = TODAY_HIGH_LOW_WEBHOOK;
+    } else if (msg.includes("powercrt")) {
+      webhookUrl = POWER_CRT_WEBHOOK;
+    } else {
+      console.log("⚠️ Ignored alert — no keyword matched");
+      return res.status(200).send("Ignored: no match");
+    }
 
-    let targetWebhook = WEBHOOKS.dayPowerMove; // default
-
-    if (msgLower.includes("power move")) targetWebhook = WEBHOOKS.dayPowerMove;
-    else if (msgLower.includes("hl alert") || msgLower.includes("high") || msgLower.includes("low"))
-      targetWebhook = WEBHOOKS.dayHL;
-    else if (msgLower.includes("power cr") || msgLower.includes("cr level"))
-      targetWebhook = WEBHOOKS.powerCR;
-
-    const response = await fetch(targetWebhook, {
+    // Send message to chosen Discord channel
+    await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: "PKS Power Move Bot",
-        content: message
+        content: `🚀 **TradingView Alert:** ${alert.message}`
       })
     });
 
-    if (response.ok) {
-      console.log("✅ Sent to Discord!");
-      res.status(200).send("Message sent!");
-    } else {
-      console.error("❌ Discord error:", await response.text());
-      res.status(500).send("Discord error");
-    }
-  } catch (err) {
-    console.error("🔥 Error:", err);
-    res.status(500).send("Internal error");
+    console.log("✅ Sent to Discord:", alert.message);
+    res.status(200).send("OK");
+  } catch (error) {
+    console.error("❌ Error sending alert:", error);
+    res.status(500).send("Error");
   }
 });
 
-app.listen(PORT, () => console.log(`🚀 PKS Discord Bot running on port ${PORT}`));
+app.listen(3000, () => console.log("🚀 Bot running on port 3000"));
