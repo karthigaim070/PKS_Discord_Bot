@@ -10,11 +10,11 @@ const TODAY_HIGH_LOW_WEBHOOK = "https://discord.com/api/webhooks/YYYY/todayhighl
 const POWER_CRT_WEBHOOK = "https://discord.com/api/webhooks/ZZZZ/powercrt";
 
 app.post("/", async (req, res) => {
-  console.log("📦 Full alert body:", req.body); 
-  const alert = req.body;
-  const msg = alert.message?.toLowerCase() || "";
-
   console.log("📩 Received alert:", msg);
+  console.log("📦 Full alert body:", req.body); 
+  let msg = alert.content?.toLowerCase() || "";
+  msg = msg.replace(/\s+/g, ""); // remove spaces/newlines for safe matching
+
 
   try {
     let webhookUrl;
