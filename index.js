@@ -13,7 +13,7 @@ app.post("/", async (req, res) => {
   const alert = req.body;
   let msg = alert.content?.toLowerCase() || "";
   console.log("📩 Received alert:", msg);
-  console.log("📩 Received alert:", req);
+  console.log("Checking:", req);
   msg = msg.replace(/\s+/g, ""); // remove spaces/newlines for safe matching
 
 
