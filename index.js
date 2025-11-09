@@ -13,7 +13,7 @@ app.post("/", async (req, res) => {
   const alert = req.body;
   let msg = alert.content?.toLowerCase() || "";
   console.log("📩 Received alert:", msg);
-  console.log("Checking:", req.body.username);
+
   msg = msg.replace(/\s+/g, ""); // remove spaces/newlines for safe matching
 
 
@@ -22,10 +22,13 @@ app.post("/", async (req, res) => {
 
     // Filter which Discord channel to send to
     if (msg.includes("daypowermove")) {
+      console.log("daypowermove:");
       webhookUrl = DAY_POWER_MOVE_WEBHOOK;
     } else if (msg.includes("todayhighorlowcreated")) {
+      console.log("todayhighorlowcreated:");
       webhookUrl = TODAY_HIGH_LOW_WEBHOOK;
     } else if (msg.includes("powercrt")) {
+      console.log("powercrt:");
       webhookUrl = POWER_CRT_WEBHOOK;
     } else {
       console.log("⚠️ Ignored alert — no keyword matched");
