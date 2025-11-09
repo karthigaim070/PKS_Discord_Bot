@@ -20,7 +20,7 @@ app.post("/", async (req, res) => {
     let webhookUrl;
 
     // Filter which Discord channel to send to
-    if (msg.includes("'daypowermove")) {
+    if (msg.includes("daypowermove")) {
       webhookUrl = DAY_POWER_MOVE_WEBHOOK;
     } else if (msg.includes("todayhighorlowcreated")) {
       webhookUrl = TODAY_HIGH_LOW_WEBHOOK;
